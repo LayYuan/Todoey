@@ -14,6 +14,8 @@ class CategoryViewController: SwipeTableViewController {
     
     let realm = try! Realm()
     var categories : Results<Category>?
+    
+    var backgroundColorHex: String = ""
 
     
     override func viewDidLoad() {
@@ -38,6 +40,7 @@ class CategoryViewController: SwipeTableViewController {
             
             let newCategory = Category()
             newCategory.name = textField.text!
+            newCategory.color = UIColor.randomFlat.hexValue()
             
             self.save(category : newCategory)
             
@@ -70,7 +73,8 @@ class CategoryViewController: SwipeTableViewController {
         
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Category added yet"
         
-        //cell.backgroundColor = UIColor.randomFlat
+        cell.backgroundColor = UIColor(hexString: categories?[indexPath.row].color ?? "1D9BF6")
+
         
         return cell
     }
@@ -87,7 +91,7 @@ class CategoryViewController: SwipeTableViewController {
         
         if let indexPath = tableView.indexPathForSelectedRow{
             destinationVC.selectedCategory = categories?[indexPath.row]
-           // destinationVC.selectedCategory = categories[indexPath.row]
+          
             
         }
     }
